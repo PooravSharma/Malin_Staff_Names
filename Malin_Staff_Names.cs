@@ -33,10 +33,10 @@ namespace Malin_Staff_Names
                         string[] lineData = line.Split(',');
                         MasterFile.Add(int.Parse(lineData[0]), lineData[1]);
                     }
-                   
+
                 }
-                
-                //FillBox(listBox_viewOnly);
+
+                FillBox(listBox_viewOnly);
             }
             else
                 MessageBox.Show("File did not load");
@@ -51,28 +51,41 @@ namespace Malin_Staff_Names
         }
         private void TextBoxIDFilter(TextBox t, KeyPressEventArgs e)
         {
-         
-                char ch = e.KeyChar;
-                if (ch == 46 && t.Text.IndexOf('.') !=-1)
-                {
-                    e.Handled =true;
-                    return;
-                }
-                if (!Char.IsDigit(ch) && ch !=8 && ch != 46)
-                {
-                    e.Handled = true;
-                }
-                t.MaxLength = 9;
-            
+
+            char ch = e.KeyChar;
+            if (ch == 46 && t.Text.IndexOf('.') !=-1)
+            {
+                e.Handled =true;
+                return;
+            }
+            if (!Char.IsDigit(ch) && ch !=8 && ch != 46)
+            {
+                e.Handled = true;
+            }
+            t.MaxLength = 9;
+
         }
         private void TextBoxNameFilter(TextBox t, KeyPressEventArgs e)
         {
             if (!Char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && t.Text.IndexOf(" ") !=-1)
             {
                 e.Handled = true;
-            } 
+            }
         }
-        
+        private void SearchID(TextBox t)
+        {
+            //listBox_filteredView.Items.Clear();
+
+            foreach (var info in MasterFile)
+            {
+                /*if (MasterFile.Contains(t.Text,info.Value))
+                {
+                    listBox_filteredView.Items.Add(info.Key + "     " + info.Value);
+                }*/
+            }
+        }
+
+
         #endregion
 
         #region TextBox
@@ -84,7 +97,7 @@ namespace Malin_Staff_Names
 
         private void textBox_Name_KeyPress(object sender, KeyPressEventArgs e)
         {
-           
+
             TextBoxNameFilter(textBox_Name, e);
         }
         #endregion
@@ -93,11 +106,28 @@ namespace Malin_Staff_Names
         {
             if (e.Alt && e.KeyCode == Keys.I)
             {
-               /* textBox_ID.Clear();
+                textBox_ID.Clear();
                 textBox_Name.Clear();
-                textBox_ID.Select();*/
-                FillBox(listBox_viewOnly);
+                textBox_ID.Select();
+
             }
+            if (e.Alt && e.KeyCode == Keys.N)
+            {
+                textBox_Name.Clear();
+                textBox_ID.Clear();
+                textBox_Name.Select();
+
+            }
+            if (e.Alt && e.KeyCode == Keys.W)
+            {
+                Application.Exit();
+
+            }
+        }
+
+        private void textBox_ID_TextChanged(object sender, EventArgs e)
+        {
+            SearchID(textBox_ID);
         }
     }
 }

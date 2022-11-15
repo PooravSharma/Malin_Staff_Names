@@ -36,6 +36,9 @@
             this.listBox_filteredView = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +56,7 @@
             this.textBox_ID.Name = "textBox_ID";
             this.textBox_ID.Size = new System.Drawing.Size(100, 20);
             this.textBox_ID.TabIndex = 1;
+            this.textBox_ID.TextChanged += new System.EventHandler(this.textBox_ID_TextChanged);
             this.textBox_ID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_ID_KeyPress);
             // 
             // textBox_Name
@@ -94,10 +98,13 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Location = new System.Drawing.Point(215, 115);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(168, 112);
+            this.panel1.Size = new System.Drawing.Size(168, 126);
             this.panel1.TabIndex = 6;
             // 
             // label3
@@ -109,6 +116,36 @@
             this.label3.Size = new System.Drawing.Size(145, 15);
             this.label3.TabIndex = 0;
             this.label3.Text = "Alt + A: Open Admin form ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(15, 38);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(117, 15);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Alt + I: Select ID box ";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(15, 66);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(145, 15);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Alt + N: Select Name box ";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(15, 92);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(116, 15);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "Alt + W: Close Form ";
             // 
             // Malin_Staff_Names
             // 
@@ -122,6 +159,7 @@
             this.Controls.Add(this.textBox_Name);
             this.Controls.Add(this.textBox_ID);
             this.Controls.Add(this.listBox_viewOnly);
+            this.KeyPreview = true;
             this.Name = "Malin_Staff_Names";
             this.Text = "Malin_Staff_Names";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Malin_Staff_Names_KeyDown);
@@ -142,6 +180,9 @@
         private System.Windows.Forms.ListBox listBox_filteredView;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label6;
     }
 }
 
