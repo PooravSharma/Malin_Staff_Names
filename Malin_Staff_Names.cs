@@ -36,14 +36,14 @@ namespace Malin_Staff_Names
 
                 }
 
-                FillBox(listBox_viewOnly);
+                FillBox();
             }
             else
                 MessageBox.Show("File did not load");
         }
-        private void FillBox(ListBox l)
+        private void FillBox()
         {
-            l.Items.Clear();
+            listBox_viewOnly.Items.Clear();
             foreach (var info in MasterFile)
             {
                 listBox_viewOnly.Items.Add(info.Key + "     " + info.Value);
@@ -74,16 +74,32 @@ namespace Malin_Staff_Names
         }
         private void SearchID(TextBox t)
         {
-            //listBox_filteredView.Items.Clear();
-
-            foreach (var info in MasterFile)
+            listBox_filteredView.Items.Clear();
+         
+            foreach (var info in MasterFile.Where(info => info.Key.ToString().Contains(t.Text)))
             {
-                /*if (MasterFile.Contains(t.Text,info.Value))
-                {
-                    listBox_filteredView.Items.Add(info.Key + "     " + info.Value);
-                }*/
+                listBox_filteredView.Items.Add(info.Key + "\t" + info.Value);
+
             }
         }
+        private void SearchName(TextBox t)
+        {
+            if (!string.IsNullOrEmpty(t.Text))
+            {
+                listBox_filteredView.Items.Clear();
+                
+                foreach (var info in MasterFile.Where(info => info.Value.ToString().ToLower().Contains(t.Text.ToLower())))
+                {
+                    listBox_filteredView.Items.Add(info.Key + "\t" + info.Value);
+
+                }
+            }
+            else
+            {
+                listBox_filteredView.Items.Clear();
+            }
+        }
+
 
 
         #endregion
@@ -108,6 +124,7 @@ namespace Malin_Staff_Names
             {
                 textBox_ID.Clear();
                 textBox_Name.Clear();
+                listBox_filteredView.Items.Clear();
                 textBox_ID.Select();
 
             }
@@ -115,19 +132,49 @@ namespace Malin_Staff_Names
             {
                 textBox_Name.Clear();
                 textBox_ID.Clear();
+                listBox_filteredView.Items.Clear();
                 textBox_Name.Select();
 
             }
-            if (e.Alt && e.KeyCode == Keys.W)
+            if (e.Alt && e.KeyCode == Keys.L)
             {
                 Application.Exit();
 
+            }            
+            if (listBox_filteredView.SelectedIndex == 0 && e.KeyCode == Keys.Enter) 
+            {
+                string line = listBox_filteredView.SelectedItem.ToString();
+                string[] line_Words =   line.Split('\t');
+              
+                textBox_ID.Text = line_Words[0];
+
+                textBox_Name.Text = line_Words[1]; 
+
+                
             }
+            if (!string.IsNullOrEmpty(textBox_ID.Text) && !string.IsNullOrEmpty(textBox_Name.Text) && e.Alt && e.KeyCode == Keys.A)
+            {
+                AdminForm admin = new AdminForm(int.Parse(textBox_ID.Text), textBox_Name.Text, MasterFile);
+                admin.Show();
+
+            }
+            else if (e.Alt && e.KeyCode == Keys.A)
+            {
+                AdminForm admin = new AdminForm();
+                admin.Show();
+            }
+
+            
         }
 
         private void textBox_ID_TextChanged(object sender, EventArgs e)
         {
             SearchID(textBox_ID);
+        }
+
+        private void textBox_Name_TextChanged(object sender, EventArgs e)
+        {
+            SearchName(textBox_Name);
         }
     }
 }
