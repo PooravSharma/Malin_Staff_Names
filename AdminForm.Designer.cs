@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -37,7 +38,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox_adminName = new System.Windows.Forms.TextBox();
             this.textBox_adminID = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +53,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(226, 147);
             this.panel1.TabIndex = 11;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(15, 117);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(112, 15);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Alt + L: Close Form ";
             // 
             // label6
             // 
@@ -120,6 +130,7 @@
             this.textBox_adminName.Name = "textBox_adminName";
             this.textBox_adminName.Size = new System.Drawing.Size(152, 20);
             this.textBox_adminName.TabIndex = 8;
+            this.textBox_adminName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_adminName_KeyPress);
             // 
             // textBox_adminID
             // 
@@ -129,16 +140,6 @@
             this.textBox_adminID.ReadOnly = true;
             this.textBox_adminID.Size = new System.Drawing.Size(152, 20);
             this.textBox_adminID.TabIndex = 7;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(15, 117);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(112, 15);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Alt + L: Close Form ";
             // 
             // AdminForm
             // 

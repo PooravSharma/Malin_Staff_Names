@@ -18,21 +18,30 @@ namespace Malin_Staff_Names
             InitializeComponent();
             FillDictonary();
         }
-        static Dictionary<int, string> MasterFile = new Dictionary<int, string>();
-
+        public static Dictionary<int, string> MasterFile = new Dictionary<int, string>();
+       
         #region Method 
-        private void FillDictonary()
+        public void FillDictonary()
         {
+            
+            MasterFile.Clear();
             if (File.Exists("MalinStaffNamesV2.csv"))
             {
                 using (StreamReader reader = new StreamReader("MalinStaffNamesV2.csv"))
                 {
-                    string[] readLines = File.ReadAllLines(@"MalinStaffNamesV2.csv");
-                    foreach (var line in readLines)
+                    while (!reader.EndOfStream)
                     {
+                        string line = reader.ReadLine();
                         string[] lineData = line.Split(',');
                         MasterFile.Add(int.Parse(lineData[0]), lineData[1]);
                     }
+
+                    /*   string[] readLines = File.ReadAllLines(@"MalinStaffNamesV2.csv");
+                       foreach (var line in readLines)
+                       {
+                           string[] lineData = line.Split(',');
+                           MasterFile.Add(int.Parse(lineData[0]), lineData[1]);
+                       }*/
 
                 }
 
@@ -65,7 +74,7 @@ namespace Malin_Staff_Names
             t.MaxLength = 9;
 
         }
-        private void TextBoxNameFilter(TextBox t, KeyPressEventArgs e)
+        public static void TextBoxNameFilter(TextBox t, KeyPressEventArgs e)
         {
             if (!Char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && t.Text.IndexOf(" ") !=-1)
             {
@@ -79,7 +88,6 @@ namespace Malin_Staff_Names
             foreach (var info in MasterFile.Where(info => info.Key.ToString().Contains(t.Text)))
             {
                 listBox_filteredView.Items.Add(info.Key + "\t" + info.Value);
-
             }
         }
         private void SearchName(TextBox t)
@@ -116,8 +124,17 @@ namespace Malin_Staff_Names
 
             TextBoxNameFilter(textBox_Name, e);
         }
+        private void textBox_ID_TextChanged(object sender, EventArgs e)
+        {
+            SearchID(textBox_ID);
+        }
+        private void textBox_Name_TextChanged(object sender, EventArgs e)
+        {
+            SearchName(textBox_Name);
+        }
         #endregion
 
+        #region Keyboard Shortcut
         private void Malin_Staff_Names_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Alt && e.KeyCode == Keys.I)
@@ -148,33 +165,31 @@ namespace Malin_Staff_Names
               
                 textBox_ID.Text = line_Words[0];
 
-                textBox_Name.Text = line_Words[1]; 
+                textBox_Name.Text = line_Words[1];
+                listBox_filteredView.Items.Clear();
 
                 
             }
             if (!string.IsNullOrEmpty(textBox_ID.Text) && !string.IsNullOrEmpty(textBox_Name.Text) && e.Alt && e.KeyCode == Keys.A)
             {
-                AdminForm admin = new AdminForm(int.Parse(textBox_ID.Text), textBox_Name.Text, MasterFile);
+                AdminForm admin = new AdminForm(int.Parse(textBox_ID.Text), textBox_Name.Text);
                 admin.Show();
+                textBox_ID.Clear();
+                textBox_Name.Clear();
 
             }
             else if (e.Alt && e.KeyCode == Keys.A)
             {
                 AdminForm admin = new AdminForm();
                 admin.Show();
+                textBox_ID.Clear();
+                textBox_Name.Clear();
             }
 
             
         }
+        #endregion
 
-        private void textBox_ID_TextChanged(object sender, EventArgs e)
-        {
-            SearchID(textBox_ID);
-        }
 
-        private void textBox_Name_TextChanged(object sender, EventArgs e)
-        {
-            SearchName(textBox_Name);
-        }
     }
 }
