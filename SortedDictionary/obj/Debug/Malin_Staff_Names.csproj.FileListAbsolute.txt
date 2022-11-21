@@ -1,0 +1,12 @@
+C:\Users\30045900\Documents\Assessments\ComplexdataStructure\Assessment3\Malin_Staff_Names\bin\Debug\Malin_Staff_Names.exe.config
+C:\Users\30045900\Documents\Assessments\ComplexdataStructure\Assessment3\Malin_Staff_Names\bin\Debug\Malin_Staff_Names.exe
+C:\Users\30045900\Documents\Assessments\ComplexdataStructure\Assessment3\Malin_Staff_Names\bin\Debug\Malin_Staff_Names.pdb
+C:\Users\30045900\Documents\Assessments\ComplexdataStructure\Assessment3\Malin_Staff_Names\obj\Debug\Malin_Staff_Names.csproj.AssemblyReference.cache
+C:\Users\30045900\Documents\Assessments\ComplexdataStructure\Assessment3\Malin_Staff_Names\obj\Debug\Malin_Staff_Names.csproj.SuggestedBindingRedirects.cache
+C:\Users\30045900\Documents\Assessments\ComplexdataStructure\Assessment3\Malin_Staff_Names\obj\Debug\Malin_Staff_Names.Malin_Staff_Names.resources
+C:\Users\30045900\Documents\Assessments\ComplexdataStructure\Assessment3\Malin_Staff_Names\obj\Debug\Malin_Staff_Names.Properties.Resources.resources
+C:\Users\30045900\Documents\Assessments\ComplexdataStructure\Assessment3\Malin_Staff_Names\obj\Debug\Malin_Staff_Names.csproj.GenerateResource.cache
+C:\Users\30045900\Documents\Assessments\ComplexdataStructure\Assessment3\Malin_Staff_Names\obj\Debug\Malin_Staff_Names.csproj.CoreCompileInputs.cache
+C:\Users\30045900\Documents\Assessments\ComplexdataStructure\Assessment3\Malin_Staff_Names\obj\Debug\Malin_Staff_Names.exe
+C:\Users\30045900\Documents\Assessments\ComplexdataStructure\Assessment3\Malin_Staff_Names\obj\Debug\Malin_Staff_Names.pdb
+C:\Users\30045900\Documents\Assessments\ComplexdataStructure\Assessment3\Malin_Staff_Names\obj\Debug\Malin_Staff_Names.AdminForm.resources
