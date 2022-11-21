@@ -16,7 +16,7 @@ namespace Malin_Staff_Names
 {
     public partial class AdminForm : Form
     {       
-        Dictionary<int, String> staffInfo = Malin_Staff_Names.MasterFile;
+        SortedDictionary<int, String> staffInfo = Malin_Staff_Names.MasterFile;
         Boolean changeMade = false;
         int staffID; 
         string staffName;

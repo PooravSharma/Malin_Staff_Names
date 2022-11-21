@@ -19,7 +19,7 @@ namespace Malin_Staff_Names
             InitializeComponent();
             FillDictonary();
         }
-        public static Dictionary<int, string> MasterFile = new Dictionary<int, string>();
+        public static SortedDictionary<int, string> MasterFile = new SortedDictionary<int, string>();
        
         #region Method 
         public void FillDictonary()
@@ -46,9 +46,8 @@ namespace Malin_Staff_Names
                        }*/
                     stopWatch.Stop();
                     MessageBox.Show("Number of ticks taken for the .CSV file to Open = " +stopWatch.ElapsedTicks.ToString()+" ticks", "Timer", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 }
-
+                
                 FillBox();
             }
             else
