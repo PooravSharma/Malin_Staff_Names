@@ -15,16 +15,19 @@ using static System.Net.Mime.MediaTypeNames;
 namespace Malin_Staff_Names
 {
     public partial class AdminForm : Form
-    {       
+    {
+        // 5.1.	Create the Admin Form with the following settings: Control Box = false and KeyPreview = True, then add two textboxes. The textbox for the Staff ID should be read-only for Update and Delete purposes.
+        //5.8.	Add suitable error trapping and user feedback to ensure a fully functional User Experience. Make all methods private and ensure the Dictionary is updated.  
         Dictionary<int, String> staffInfo = Malin_Staff_Names.MasterFile;
         Boolean changeMade = false;
-        int staffID; 
+        int staffID;
         string staffName;
         public AdminForm()
         {
             InitializeComponent();
         }
 
+        // 5.2.	Create a method that will receive the Staff ID from the general form and then populate textboxes with the related data. 
         public AdminForm(int Id, string Name)
         {
             InitializeComponent();
@@ -36,14 +39,15 @@ namespace Malin_Staff_Names
         #region KeyBoard ShortCut
         private void AdminForm_KeyDown(object sender, KeyEventArgs e)
         {
+            // 5.3.	Create a method that will create a new Staff ID and input the staff name from the related text box. The Staff ID must be unique starting with 77xxxxxxx while the staff name may be duplicated. The new staff member must be added to the Dictionary data structure.
             if (e.Alt && e.KeyCode == Keys.C)
-            {                
+            {
                 CreateInfo();
 
             }
             if (e.Alt && e.KeyCode == Keys.U)
             {
-               
+
                 UpdateInfo();
 
             }
@@ -56,6 +60,9 @@ namespace Malin_Staff_Names
             {
                 UndoChange();
             }
+
+            //5.6.	Create a method that will save changes to the csv file, this method should be called before the Admin Form closes.
+            // 5.7.	Create a method that will close the Admin Form when the Alt + L keys are pressed.
             if (e.Alt && e.KeyCode == Keys.L)
             {
                 if (changeMade==true)
@@ -65,7 +72,7 @@ namespace Malin_Staff_Names
                     {
                         SaveDictonary();
                         Malin_Staff_Names malin_Staff_Names = new Malin_Staff_Names();
-                        malin_Staff_Names.FillDictonary();
+
                     }
                 }
                 this.Close();
@@ -74,7 +81,7 @@ namespace Malin_Staff_Names
         #endregion
 
         #region Method 
-
+        // 5.3.	Create a method that will create a new Staff ID and input the staff name from the related text box. The Staff ID must be unique starting with 77xxxxxxx while the staff name may be duplicated. The new staff member must be added to the Dictionary data structure.
         public void CreateInfo()
         {
             if (!string.IsNullOrEmpty(textBox_adminName.Text))
@@ -86,14 +93,14 @@ namespace Malin_Staff_Names
                 {
                     newId = random.Next(77000000, 77999999);
                 }
-                
+
                 string newName = textBox_adminName.Text;
                 DialogResult result = MessageBox.Show("Are you sure you want to create a NEW staff information with the ID = " + newId + " and Name = " + textBox_adminName.Text, "Creating New", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (result == DialogResult.Yes)
                 {
                     PlaceHolder(newId, textBox_adminName.Text);
                     staffInfo.Add(newId, newName);
-                   
+
                 }
                 textBox_adminID.Clear();
                 textBox_adminName.Clear();
@@ -127,9 +134,11 @@ namespace Malin_Staff_Names
             }
             else
             {
-                MessageBox.Show("Some thing when wrong!!!", "ERROR: Creating Staff Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Name textbox is empty!!!", "ERROR: Creating Staff Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        // 5.4.	Create a method that will Update the name of the current Staff ID.
         public void UpdateInfo()
         {
             if (!string.IsNullOrEmpty(textBox_adminName.Text))
@@ -147,9 +156,11 @@ namespace Malin_Staff_Names
             }
             else
             {
-                MessageBox.Show("Some thing when wrong!!!", "ERROR: Updating Staff Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Name textbox is empty!!!", "ERROR: Updating Staff Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        //5.5.	Create a method that will Remove the current Staff ID and clear the text boxes.
         public void DeleteInfo()
         {
             if (!string.IsNullOrEmpty(textBox_adminName.Text) && staffInfo.ContainsKey(int.Parse(textBox_adminID.Text)))
@@ -160,9 +171,9 @@ namespace Malin_Staff_Names
                     PlaceHolder(int.Parse(textBox_adminID.Text), textBox_adminName.Text);
                     staffInfo.Remove(int.Parse(textBox_adminID.Text));
                     textBox_adminName.Clear();
-                      textBox_adminID.Clear();
+                    textBox_adminID.Clear();
                 }
-                
+
                 changeMade = true;
             }
             else
@@ -170,52 +181,65 @@ namespace Malin_Staff_Names
                 MessageBox.Show("Some thing when wrong!!!", "ERROR: Deleting Staff Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        //Undo changes made in the admin form 
         public void UndoChange()
         {
             changeMade = false;
             FillTextBox();
 
         }
+
+        // 5.6.	Create a method that will save changes to the csv file, this method should be called before the Admin Form closes.
         private void SaveDictonary()
-        {
+        {   //Stopwatch stopWatch = new Stopwatch();
             string fileName = "MalinStaffNamesV2.csv";
             try
             {
-                Stopwatch stopWatch = new Stopwatch();
+
                 FileStream file = new FileStream(fileName, FileMode.Create);
                 using (StreamWriter writer = new StreamWriter(file))
-                {
+                { //stopWatch.Start();
                     foreach (var info in staffInfo)
                     {
-                        stopWatch.Start();
+
                         writer.WriteLine(info.Key.ToString()+","+  info.Value);
                     }
                 }
-                stopWatch.Stop();
-                MessageBox.Show("Number of ticks taken for the .CSV file to Save = " +stopWatch.ElapsedTicks.ToString()+" ticks", "Timer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
             catch (IOException ex)
             {
                 MessageBox.Show(ex.ToString());
             }
-
+            /*stopWatch.Stop();
+            MessageBox.Show("Number of ticks taken for the .CSV file to Save = " +stopWatch.ElapsedTicks.ToString()+" ticks", "Timer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+*/
         }
+
         #endregion
 
         #region TextBox
         private void textBox_adminName_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Malin_Staff_Names.TextBoxNameFilter(textBox_adminName, e);
+            TextBoxAdminNameFilter(textBox_adminName, e);
         }
         private void PlaceHolder(int Id, string Name)
         {
             staffID = Id;
-            staffName = Name;   
+            staffName = Name;
         }
         private void FillTextBox()
         {
             textBox_adminID.Text = staffID.ToString();
             textBox_adminName.Text = staffName;
+        }
+        private void TextBoxAdminNameFilter(TextBox t, KeyPressEventArgs e)
+        {
+            if (!Char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && t.Text.IndexOf(" ") !=-1)
+            {
+                e.Handled = true;
+            }
         }
         #endregion
     }

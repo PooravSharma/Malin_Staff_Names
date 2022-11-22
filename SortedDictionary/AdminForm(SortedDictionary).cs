@@ -15,10 +15,10 @@ using static System.Net.Mime.MediaTypeNames;
 namespace Malin_Staff_Names
 {
     public partial class AdminForm : Form
-    {       
+    {
         SortedDictionary<int, String> staffInfo = Malin_Staff_Names.MasterFile;
         Boolean changeMade = false;
-        int staffID; 
+        int staffID;
         string staffName;
         public AdminForm()
         {
@@ -37,13 +37,13 @@ namespace Malin_Staff_Names
         private void AdminForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Alt && e.KeyCode == Keys.C)
-            {                
+            {
                 CreateInfo();
 
             }
             if (e.Alt && e.KeyCode == Keys.U)
             {
-               
+
                 UpdateInfo();
 
             }
@@ -65,7 +65,7 @@ namespace Malin_Staff_Names
                     {
                         SaveDictonary();
                         Malin_Staff_Names malin_Staff_Names = new Malin_Staff_Names();
-                        malin_Staff_Names.FillDictonary();
+
                     }
                 }
                 this.Close();
@@ -86,14 +86,14 @@ namespace Malin_Staff_Names
                 {
                     newId = random.Next(77000000, 77999999);
                 }
-                
+
                 string newName = textBox_adminName.Text;
                 DialogResult result = MessageBox.Show("Are you sure you want to create a NEW staff information with the ID = " + newId + " and Name = " + textBox_adminName.Text, "Creating New", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (result == DialogResult.Yes)
                 {
                     PlaceHolder(newId, textBox_adminName.Text);
                     staffInfo.Add(newId, newName);
-                   
+
                 }
                 textBox_adminID.Clear();
                 textBox_adminName.Clear();
@@ -127,7 +127,7 @@ namespace Malin_Staff_Names
             }
             else
             {
-                MessageBox.Show("Some thing when wrong!!!", "ERROR: Creating Staff Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Name textbox is empty!!!", "ERROR: Creating Staff Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         public void UpdateInfo()
@@ -147,7 +147,7 @@ namespace Malin_Staff_Names
             }
             else
             {
-                MessageBox.Show("Some thing when wrong!!!", "ERROR: Updating Staff Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Name text box is empty!", "ERROR: Updating Staff Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         public void DeleteInfo()
@@ -160,9 +160,9 @@ namespace Malin_Staff_Names
                     PlaceHolder(int.Parse(textBox_adminID.Text), textBox_adminName.Text);
                     staffInfo.Remove(int.Parse(textBox_adminID.Text));
                     textBox_adminName.Clear();
-                      textBox_adminID.Clear();
+                    textBox_adminID.Clear();
                 }
-                
+
                 changeMade = true;
             }
             else
@@ -181,18 +181,18 @@ namespace Malin_Staff_Names
             string fileName = "MalinStaffNamesV2.csv";
             try
             {
-                Stopwatch stopWatch = new Stopwatch();
+                // Stopwatch stopWatch = new Stopwatch();
                 FileStream file = new FileStream(fileName, FileMode.Create);
                 using (StreamWriter writer = new StreamWriter(file))
                 {
                     foreach (var info in staffInfo)
                     {
-                        stopWatch.Start();
+                        //stopWatch.Start();
                         writer.WriteLine(info.Key.ToString()+","+  info.Value);
                     }
                 }
-                stopWatch.Stop();
-                MessageBox.Show("Number of ticks taken for the .CSV file to Save = " +stopWatch.ElapsedTicks.ToString()+" ticks", "Timer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //stopWatch.Stop();
+                // MessageBox.Show("Number of ticks taken for the .CSV file to Save = " +stopWatch.ElapsedTicks.ToString()+" ticks", "Timer", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (IOException ex)
             {
@@ -210,7 +210,7 @@ namespace Malin_Staff_Names
         private void PlaceHolder(int Id, string Name)
         {
             staffID = Id;
-            staffName = Name;   
+            staffName = Name;
         }
         private void FillTextBox()
         {

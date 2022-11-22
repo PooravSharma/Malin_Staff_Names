@@ -20,11 +20,11 @@ namespace Malin_Staff_Names
             FillDictonary();
         }
         public static SortedDictionary<int, string> MasterFile = new SortedDictionary<int, string>();
-       
+
         #region Method 
         public void FillDictonary()
         {
-            Stopwatch stopWatch = new Stopwatch();
+            //Stopwatch stopWatch = new Stopwatch();
             MasterFile.Clear();
             if (File.Exists("MalinStaffNamesV2.csv"))
             {
@@ -32,7 +32,7 @@ namespace Malin_Staff_Names
                 {
                     while (!reader.EndOfStream)
                     {
-                        stopWatch.Start();
+                        //stopWatch.Start();
                         string line = reader.ReadLine();
                         string[] lineData = line.Split(',');
                         MasterFile.Add(int.Parse(lineData[0]), lineData[1]);
@@ -44,10 +44,10 @@ namespace Malin_Staff_Names
                            string[] lineData = line.Split(',');
                            MasterFile.Add(int.Parse(lineData[0]), lineData[1]);
                        }*/
-                    stopWatch.Stop();
-                    MessageBox.Show("Number of ticks taken for the .CSV file to Open = " +stopWatch.ElapsedTicks.ToString()+" ticks", "Timer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    /* stopWatch.Stop();
+                     MessageBox.Show("Number of ticks taken for the .CSV file to Open = " +stopWatch.ElapsedTicks.ToString()+" ticks", "Timer", MessageBoxButtons.OK, MessageBoxIcon.Information);*/
                 }
-                
+
                 FillBox();
             }
             else
@@ -87,7 +87,7 @@ namespace Malin_Staff_Names
         private void SearchID(TextBox t)
         {
             listBox_filteredView.Items.Clear();
-         
+
             foreach (var info in MasterFile.Where(info => info.Key.ToString().Contains(t.Text)))
             {
                 listBox_filteredView.Items.Add(info.Key + "\t" + info.Value);
@@ -98,7 +98,7 @@ namespace Malin_Staff_Names
             if (!string.IsNullOrEmpty(t.Text))
             {
                 listBox_filteredView.Items.Clear();
-                
+
                 foreach (var info in MasterFile.Where(info => info.Value.ToString().ToLower().Contains(t.Text.ToLower())))
                 {
                     listBox_filteredView.Items.Add(info.Key + "\t" + info.Value);
@@ -160,18 +160,18 @@ namespace Malin_Staff_Names
             {
                 Application.Exit();
 
-            }            
-            if (listBox_filteredView.SelectedIndex == 0 && e.KeyCode == Keys.Enter) 
+            }
+            if (listBox_filteredView.SelectedIndex == 0 && e.KeyCode == Keys.Enter)
             {
                 string line = listBox_filteredView.SelectedItem.ToString();
-                string[] line_Words =   line.Split('\t');
-              
+                string[] line_Words = line.Split('\t');
+
                 textBox_ID.Text = line_Words[0];
 
                 textBox_Name.Text = line_Words[1];
                 listBox_filteredView.Items.Clear();
 
-                
+
             }
             if (!string.IsNullOrEmpty(textBox_ID.Text) && !string.IsNullOrEmpty(textBox_Name.Text) && e.Alt && e.KeyCode == Keys.A)
             {
@@ -189,7 +189,7 @@ namespace Malin_Staff_Names
                 textBox_Name.Clear();
             }
 
-            
+
         }
         #endregion
 
